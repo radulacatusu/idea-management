@@ -1,43 +1,29 @@
-package com.mine.idea.model;
+package com.mine.idea.api;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 /**
  * @stefanl
  */
-@Entity
-public class Idea {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class IdeaApi {
     private long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @NotNull
     private String content;
-
+    @NotNull
     private Integer impact;
+    @NotNull
     private Integer ease;
+    @NotNull
     private Integer confidence;
-
-    @Column(name = "AVERAGE_SCORE")
+    private long createdAt;
     private Double averageScore;
-
-    @Column(name = "CREATED_AT")
-    private Date createdAt;
 
     public long getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -72,11 +58,11 @@ public class Idea {
         this.confidence = confidence;
     }
 
-    public Date getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -92,13 +78,10 @@ public class Idea {
     public String toString() {
         return "IdeaApi{" +
                 "id=" + id +
-                ", user=" + user +
                 ", content='" + content + '\'' +
                 ", impact=" + impact +
                 ", ease=" + ease +
                 ", confidence=" + confidence +
-                ", average_score=" + averageScore +
-                ", created_at=" + createdAt +
                 '}';
     }
 }

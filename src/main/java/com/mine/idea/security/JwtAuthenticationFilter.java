@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mine.idea.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,12 +14,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @stefanl
@@ -56,22 +59,28 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+                                            Authentication auth) throws IOException {
 
         Long now = System.currentTimeMillis();
-        String username = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+        org.springframework.security.core.userdetails.User user
+                = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
+
         String token = Jwts.builder()
-                .setSubject(username)
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+                .setExpiration(new Date(now + jwtConfig.getExpiration()))
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
 
-        response.setContentType("application/json");
+
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("jwt", token);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(
-                "{\"jwt\":\"" + token + "\"}"
-        );
-        //response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        mapper.writeValue(response.getWriter(), tokenMap);
     }
 }

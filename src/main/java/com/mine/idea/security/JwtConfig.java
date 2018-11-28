@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtConfig {
 
-    @Value("${security.jwt.signUpUrl:/access-tokens**}")
+    @Value("${security.jwt.accessTokens:/access-tokens}")
     private String accessTokens;
 
     @Value("${security.jwt.signUpUrl:/users}")
@@ -21,11 +21,14 @@ public class JwtConfig {
     @Value("${security.jwt.prefix:Bearer }")
     private String prefix;
 
-    @Value("${security.jwt.expiration:#{24*60*60}}")
+    @Value("${security.jwt.expiration:600000}")
     private int expiration;
 
     @Value("${security.jwt.secret:SecretKeyToGenJWTs}")
     private String secret;
+
+    @Value("${security.jwt.refreshToken:/refresh-token}")
+    private String refreshToken;
 
     public String getHeader() {
         return header;
@@ -49,5 +52,9 @@ public class JwtConfig {
 
     public String getAccessTokens() {
         return accessTokens;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 }

@@ -1,5 +1,6 @@
 package com.mine.idea.security;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,21 +39,22 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         String token = header.replace(jwtConfig.getPrefix(), "");
+        try {
+            String user = Jwts.parser()
+                    .setSigningKey(jwtConfig.getSecret().getBytes())
+                    .parseClaimsJws(token)
+                    .getBody().getSubject();
+            if (user != null) {
 
-        String user = Jwts.parser()
-                .setSigningKey(jwtConfig.getSecret().getBytes())
-                .parseClaimsJws(token)
-                .getBody().getSubject();
-
-        if (user != null) {
-            try {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            } catch (Exception e) {
-                SecurityContextHolder.clearContext();
             }
+        } catch (JwtException e) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.getWriter().write(e.getMessage());
+        } catch (Exception e) {
+            SecurityContextHolder.clearContext();
         }
         chain.doFilter(req, res);
     }

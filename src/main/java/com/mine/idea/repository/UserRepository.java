@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * @stefanl
  */
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * @param email

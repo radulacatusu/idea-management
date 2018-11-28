@@ -1,6 +1,7 @@
 package com.mine.idea.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -12,10 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private String name;
-    
+
+    @NotNull
     @Column(unique = true)
     private String email;
+    @NotNull
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
