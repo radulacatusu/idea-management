@@ -26,7 +26,7 @@ I used POSTMAN and cURL to test the application.
 
 ### Sign-up
 ```
-POST - http://localhost:8080/users
+POST - http://localhost:8080/users or http://34.209.73.115:8080/users
 ```
 ##### Body
 ```
@@ -42,7 +42,7 @@ Response: 201 CREATED
 ```
 ### Login
 ```
-POST - http://localhost:8080/access-tokens
+POST - http://localhost:8080/access-tokens or http://34.209.73.115:8080/access-tokens
 ```
 ##### Body
 ```
@@ -59,7 +59,7 @@ Response: 200 OK
 ```
 ### Create new idea
 ```
-POST - http://localhost:8080/ideas
+POST - http://localhost:8080/ideas or http://34.209.73.115:8080/ideas
 ```
 ##### Body
 ```
@@ -84,7 +84,7 @@ Response: 201 CREATED
 ```
 ### Get all the ideas
 ```
-GET - http://localhost:8080/ideas
+GET - http://localhost:8080/ideas or http://34.209.73.115:8080/ideas
 ```
 Response: 200 OK
 ```
@@ -111,7 +111,7 @@ Response: 200 OK
 ```
 ### Update an idea
 ```
-PUT - http://localhost:8080/ideas/12
+PUT - http://localhost:8080/ideas/12 or http://34.209.73.115:8080/idea/12
 ```
 ##### Body
 ```
@@ -136,13 +136,13 @@ Response: 202 OK
 ```
 ### Delete an Idea
 ```
-DELETE - http://localhost:8080/ideas/10
+DELETE - http://localhost:8080/ideas/10 or http://34.209.73.115:8080/ideas/10
 ```
 Response: 204 NO CONTENT
 
 ### Get user
 ```
-GET - http://localhost:8080/me
+GET - http://localhost:8080/me or http://34.209.73.115:8080/me
 ```
 Response: 200 OK
 ```
