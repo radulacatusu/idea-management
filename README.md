@@ -28,7 +28,7 @@ I used POSTMAN and cURL to test the application.
 ```
 POST - http://localhost:8080/users
 ```
-#####Body
+##### Body
 ```
     {
       "email": "jack-black@test.io",
@@ -44,7 +44,7 @@ Response: 201 CREATED
 ```
 POST - http://localhost:8080/access-tokens
 ```
-#####Body
+##### Body
 ```
     {
       "email": "jack-black@test.io",
@@ -61,7 +61,7 @@ Response: 200 OK
 ```
 POST - http://localhost:8080/ideas
 ```
-#####Body
+##### Body
 ```
 {
     "content": "the-content",
@@ -113,7 +113,7 @@ Response: 200 OK
 ```
 PUT - http://localhost:8080/ideas/12
 ```
-#####Body
+##### Body
 ```
 {
     "content": "the-content new",
