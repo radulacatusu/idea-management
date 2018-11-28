@@ -20,7 +20,7 @@
         <junit.version>4.12</junit.version>
         <mysql.version>8.0.12</mysql.version>
         <h2.version>1.4.197</h2.version>
-        <spring-security-oauth2.version>2.2.1.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.2.3.RELEASE</spring-security-oauth2.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
     </properties>
 
